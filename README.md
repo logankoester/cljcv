@@ -4,6 +4,7 @@
 <p align="center">
   <img src="doc/example.gif" alt="example" />
 </p>
+
 ## Installation
 
 Download the [latest release](https://github.com/logankoester/cljcv/releases),
