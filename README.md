@@ -15,12 +15,16 @@ letters or make other adjustments for each company you apply to.
 
 ## Installation
 
-Download the [latest release](https://github.com/logankoester/cljcv/releases),
-then add an executable wrapper script to your $PATH, like this:
+Arch Linux users can install the
+[cljcv-git](https://aur.archlinux.org/packages/cljcv-git/) package from AUR.
+
+On other platforms, you can download the
+[latest release](https://github.com/logankoester/cljcv/releases), and then add
+an executable wrapper script to your $PATH, like this:
 
 ```bash
 #!/bin/sh
-exec /usr/bin/java -jar '/path/to/cljcv-$VERSION-SNAPSHOT-standalone.jar' "$@"
+exec /usr/bin/java -jar '/path/to/cljcv-$VERSION-standalone.jar' "$@"
 ```
 
 ## Usage
