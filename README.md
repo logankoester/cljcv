@@ -5,6 +5,14 @@
   <img src="doc/example.gif" alt="example" />
 </p>
 
+## How it works
+
+Write your résumé in [edn](https://github.com/edn-format/edn), and **cljcv**
+will produce a nicely formatted document for you.
+
+You can then create variants that extend from your defaults to add cover
+letters or make other adjustments for each company you apply to.
+
 ## Installation
 
 Download the [latest release](https://github.com/logankoester/cljcv/releases),
@@ -29,16 +37,21 @@ $ cd ~/cv
 $ cljcv init
 ```
 
-The `data/default.clj` file is your default CV. Once you've completed it, you may create additional variants, such as
-adding cover letters for specific companies.
+The file `data/default.clj` is your default CV.
 
-You should also add your avatar, signature, company logos, and skill icon images to the `resources` directory.
+If you run `cljcv watch` while you're editing, your documents will be rebuilt
+each time you save. Some PDF readers will reload automatically when a file
+changes, allowing you to preview your work. Specifically I recommend
+[Evince](https://wiki.gnome.org/Apps/Evince).
 
-When you're finished, produce the output by running:
 
-```
-$ cljcv build
-```
+The file `data/variant.clj` is an example of how to extend `default.clj` by adding a
+cover letter. You may safely delete or rename it if, or create more.
+
+You should also add your own avatar, signature, company logos, and skill icon images
+to the `resources` directory, overwriting the placeholders that you find there.
+
+When you're finished, run `cljcv build`.
 
 ## License
 
