@@ -1,9 +1,9 @@
 # cljcv
 
 > Produce a nicely formatted curriculum vitae or résumé in various formats.
-
-![example](doc/example.gif)
-
+<p align="center">
+  <img src="doc/example.gif" alt="example" />
+</p>
 ## Installation
 
 Download the [latest release](https://github.com/logankoester/cljcv/releases),
@@ -16,7 +16,9 @@ exec /usr/bin/java -jar '/path/to/cljcv-$VERSION-SNAPSHOT-standalone.jar' "$@"
 
 ## Usage
 
-![demo](doc/demo.gif)
+<p align="center">
+  <img src="doc/demo.gif" alt="demo" />
+</p>
 
 First, create a new project skeleton.
 
