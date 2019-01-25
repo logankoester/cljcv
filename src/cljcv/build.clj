@@ -1,6 +1,7 @@
 (ns cljcv.build
   (:gen-class)
   (:require [hawk.core :as hawk])
+  (:require [clojure.java.io :as io])
   (:require [cljcv.pdf :as pdf]))
 
 (defn find-resumes
@@ -20,6 +21,17 @@
     pure-file-path
     file-path))
 
+(defn basename
+  "Return the basename of a file"
+  [file]
+   (.getName (io/file file)))
+
+(defn single
+  "Write a single resume to PDF file"
+  [file]
+  (do (println "Building " file)
+   (pdf/build (read-resume file) (remove-extension (basename file)))))
+
 (defn all
   "Write all resumes to PDF files"
   [options]
@@ -32,5 +44,5 @@
   [options]
   (hawk/watch! [{:paths (mapv (fn [file] (str "data/" file)) (find-resumes))
                 :handler (fn [ctx e]
-                            (all options)
+                            (single (str (get e :file)))
                             ctx)}]))
