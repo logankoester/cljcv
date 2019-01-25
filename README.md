@@ -2,7 +2,6 @@
 
 > Produce a nicely formatted curriculum vitae or résumé in various formats.
 
-![demo](doc/demo.gif)
 ![example](doc/example.gif)
 
 ## Installation
@@ -16,6 +15,8 @@ exec /usr/bin/java -jar '/path/to/cljcv-$VERSION-SNAPSHOT-standalone.jar' "$@"
 ```
 
 ## Usage
+
+![demo](doc/demo.gif)
 
 First, create a new project skeleton.
 
