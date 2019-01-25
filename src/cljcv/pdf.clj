@@ -23,8 +23,7 @@
     [:spacer 8]
     [:heading 
     {:encoding :unicode
-      :ttf-name (io/file
-                  (io/resource "resources/Padauk-Bold.ttf"))}
+      :ttf-name "resources/fonts/Padauk-Bold.ttf"}
     (get cover :heading)]
     [:spacer 1]
     [:paragraph
@@ -46,9 +45,9 @@
   [input output]
   (pdf
     [{:stylesheet stylesheet
+      :register-system-fonts? true
       :font {:encoding :unicode
-            :ttf-name (io/file
-                        (io/resource "resources/Apercu_Regular.ttf"))}
+            :ttf-name "resources/fonts/Apercu_Regular.ttf"}
       :title (get input :name)
       :author (get input :name)
       :creator (get input :name)
@@ -70,8 +69,7 @@
                 [:heading.name
                   {:encoding :unicode
                   :style { :size 28 }
-                  :ttf-name (io/file
-                              (io/resource "resources/nobel-regular.ttf"))}
+                  :ttf-name "resources/fonts/nobel-regular.ttf"}
                   (get input :name)]
                 [:paragraph
                   { :align :right }
@@ -95,8 +93,7 @@
       [:spacer 3]
       [:heading 
       {:encoding :unicode
-        :ttf-name (io/file
-                    (io/resource "resources/Padauk-Bold.ttf"))}
+        :ttf-name "resources/fonts/Padauk-Bold.ttf"}
       "Technical Skills"]
       [:line {:dotted true}]
       (skills/skill-bars-svg [40 485] (get input :skills))
@@ -106,8 +103,7 @@
       [:spacer 6]
       [:heading 
       {:encoding :unicode
-        :ttf-name (io/file
-                    (io/resource "resources/Padauk-Bold.ttf"))}
+        :ttf-name "resources/fonts/Padauk-Bold.ttf"}
       "Experience"]
       [:line {:dotted true}]
       (experience/experience-template (nth (partition-all 3 (get input :experience)) 0))
@@ -115,8 +111,7 @@
       [:spacer 6]
       [:heading 
       {:encoding :unicode
-        :ttf-name (io/file
-                    (io/resource "resources/Padauk-Bold.ttf"))}
+        :ttf-name "resources/fonts/Padauk-Bold.ttf"}
       "Experience"]
       [:line {:dotted true}]
       (experience/experience-template (nth (partition-all 3 (get input :experience)) 1))

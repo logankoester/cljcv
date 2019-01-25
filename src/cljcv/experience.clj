@@ -21,8 +21,7 @@
         [:paragraph
           [:heading.job-title
             {:encoding :unicode 
-             :ttf-name (io/file
-                         (io/resource "resources/Alice-Regular.ttf"))}
+             :ttf-name "resources/fonts/Alice-Regular.ttf"}
            $title]
           [:phrase { :style :bold }  $company "\n"]]
         [:paragraph

@@ -28,10 +28,19 @@
     (fs/mkdir "resources")
     (fs/mkdir "resources/experience")
     (fs/mkdir "resources/skills")
+    (fs/mkdir "resources/fonts")
+
     (copy-resource! "avatar.png")
     (copy-resource! "signature.png")
     (copy-resource! "experience/logo.png")
     (copy-resource! "skills/icon.png")
+
+    (copy-resource! "fonts/Alice-Regular.ttf")
+    (copy-resource! "fonts/Apercu-Medium.ttf")
+    (copy-resource! "fonts/Apercu_Regular.ttf")
+    (copy-resource! "fonts/nobel-regular.ttf")
+    (copy-resource! "fonts/Padauk-Bold.ttf")
+
     (spit "data/default.clj" (slurp default-clj))
     (spit "data/variant.clj" (slurp variant-clj))
     (spit ".gitignore" (slurp gitignore))

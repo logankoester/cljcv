@@ -10,8 +10,7 @@
   (vector
     [:heading 
     {:encoding :unicode
-      :ttf-name (io/file
-                  (io/resource "resources/Padauk-Bold.ttf"))}
+      :ttf-name "resources/fonts/Padauk-Bold.ttf"}
     "Highlights"]
     [:line {:dotted true}]
     [:spacer 1]
