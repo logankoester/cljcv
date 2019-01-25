@@ -6,8 +6,8 @@
   (:require [cljcv.pdf :as pdf]))
 
 (def cli-options
-  [["-d" "--directory PATH" "Path to project directory"]
-   ["-c" "--cover FILE" "Cover letter"]])
+  [
+   ["-h" "--help" "Display help and exit"]])
 
 (defn usage [options-summary]
   (->> ["Produce a nicely formatted curriculum vitae or résumé in various formats."
