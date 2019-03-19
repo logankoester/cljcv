@@ -6,11 +6,11 @@
 
 (defn render
   "Render the highlights section"
-  [highlights]
+  [options highlights]
   (vector
     [:heading 
     {:encoding :unicode
-      :ttf-name "resources/fonts/Padauk-Bold.ttf"}
+      :ttf-name (utils/project-path options "resources/fonts/Padauk-Bold.ttf")}
     "Highlights"]
     [:line {:dotted true}]
     [:spacer 1]

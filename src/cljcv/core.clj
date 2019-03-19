@@ -7,6 +7,8 @@
 
 (def cli-options
   [
+   ["-d" "--dir PATH"  "Path to project directory"
+    :default (System/getProperty "user.dir")]
    ["-h" "--help" "Display help and exit"]])
 
 (defn usage [options-summary]

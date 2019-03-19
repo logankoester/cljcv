@@ -1,18 +1,61 @@
 (ns cljcv.build
   (:gen-class)
+  (:require [cljcv.utils :as utils])
   (:require [hawk.core :as hawk])
   (:require [clojure.java.io :as io])
   (:require [cljcv.pdf :as pdf]))
 
 (defn find-resumes
   "Returns a list of input files"
-  []
-  (filter #(re-matches #".*\.clj$" %) (seq (.list (clojure.java.io/file "data")))))
+  [dir]
+  (filter #(re-matches #".*\.clj$" %) (seq (.list (clojure.java.io/file dir "data")))))
+
+(defn remap-skill-paths
+  [options resume]
+  (update-in
+    resume [:skills]
+    (fn
+      [skills]
+      (mapv
+        (fn
+          [skill]
+          (update-in skill [:icon]
+                     (fn [icon]
+                       (utils/project-path options icon))))
+        skills))))
+
+(defn remap-experience-paths
+  [options resume]
+  (update-in
+    resume [:experience]
+    (fn
+      [experiences]
+      (mapv
+        (fn
+          [experience]
+          (update-in experience [:logo]
+                     (fn [logo]
+                       (utils/project-path options logo))))
+        experiences))))
+
+(defn remap-resume-paths
+  "Remap local paths in a resume to relative project paths"
+  [options resume]
+  (remap-skill-paths
+    options
+    (remap-experience-paths
+      options
+      resume)))
 
 (defn read-resume
   "Slurp an input file and merge it with defaults"
-  [file]
-  (merge (read-string (slurp file)) (read-string (slurp "data/default.clj"))))
+  [options file]
+  (let
+    [resume-path (str (get options :dir) "data/" file)
+     default-path (str (get options :dir) "data/" "default.clj")]
+    (remap-resume-paths
+      options
+      (merge (read-string (slurp resume-path)) (read-string (slurp default-path))))))
 
 (defn remove-extension
   "Remove extension from a file path."
@@ -35,9 +78,11 @@
 (defn all
   "Write all resumes to PDF files"
   [options]
-  (doseq [file (find-resumes)]
+  (doseq [file (find-resumes (get options :dir))]
     (println "Building " file)
-    (pdf/build (read-resume (str "data/" file)) (remove-extension file))))
+    (let
+      [output-path (str (get options :dir) "public/" (remove-extension file) ".pdf")]
+      (pdf/build options (read-resume options file) output-path))))
 
 (defn watch
   "Watch data/ and rebuild when files are changed"

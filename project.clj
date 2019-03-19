@@ -10,6 +10,7 @@
                  [org.clojure/tools.cli "0.4.1"]
                  [me.raynes/fs "1.4.6"]
                  [hawk "0.2.11"]
+                 [pathetic "0.5.1"]
                 ]
   :plugins [[lein-auto "0.1.3"]]
             
