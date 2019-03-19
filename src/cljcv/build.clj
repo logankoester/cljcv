@@ -49,8 +49,8 @@
   "Slurp an input file and merge it with defaults"
   [options file]
   (let
-    [resume-path (str (get options :dir) "data/" file)
-     default-path (str (get options :dir) "data/" "default.clj")]
+    [resume-path (str (get options :dir) "/data/" file)
+     default-path (str (get options :dir) "/data/" "default.clj")]
     (remap-resume-paths
       (merge (read-string (slurp resume-path)) (read-string (slurp default-path))))))
 
@@ -78,7 +78,7 @@
   (doseq [file (find-resumes (get options :dir))]
     (println "Building " file)
     (let
-      [output-path (str (get options :dir) "public/" (remove-extension file) ".pdf")]
+      [output-path (str (get options :dir) "/public/" (remove-extension file) ".pdf")]
       (pdf/build (read-resume options file) output-path))))
 
 (defn watch
