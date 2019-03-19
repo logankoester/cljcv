@@ -1,4 +1,4 @@
-(defproject cljcv "0.1.2"
+(defproject cljcv "0.2.0"
   :description "Produce a nicely formatted curriculum vitae or résumé in various formats."
   :url "https://github.com/logankoester/cljcv"
   :license {:name "MIT"
