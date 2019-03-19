@@ -5,6 +5,7 @@
   (:require [cljcv.skills :as skills])
   (:require [cljcv.experience :as experience])
   (:require [cljcv.highlights :as highlights])
+  (:require [cljcv.projects :as projects])
   (:use clj-pdf.core))
 
 (def stylesheet
@@ -19,12 +20,12 @@
 
 (defn cover
   "Render the cover page"
-  [options cover]
+  [cover]
   (vector
     [:spacer 8]
     [:heading 
     {:encoding :unicode
-      :ttf-name (utils/project-path options "resources/fonts/Padauk-Bold.ttf")}
+      :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
     (get cover :heading)]
     [:spacer 1]
     [:paragraph
@@ -36,19 +37,19 @@
         :width 200
         :height 83
         }
-        (utils/project-path options (get cover :signature))]
+        (utils/project-path (get cover :signature))]
     ]
 
     [:pagebreak]))
 
 (defn build
   "Write the resume to a PDF file"
-  [options input output]
+  [input output]
   (pdf
     [{:stylesheet stylesheet
       :register-system-fonts? true
       :font {:encoding :unicode
-            :ttf-name (utils/project-path options "resources/fonts/Apercu_Regular.ttf")}
+            :ttf-name (utils/project-path "resources/fonts/Apercu_Regular.ttf")}
       :title (get input :name)
       :author (get input :name)
       :creator (get input :name)
@@ -66,11 +67,11 @@
                   :width 64
                   :height 64
                   }
-                  (utils/project-path options (get input :avatar))]
+                  (utils/project-path (get input :avatar))]
                 [:heading.name
                   {:encoding :unicode
                   :style { :size 28 }
-                  :ttf-name (utils/project-path options "resources/fonts/nobel-regular.ttf")}
+                  :ttf-name (utils/project-path "resources/fonts/nobel-regular.ttf")}
                   (get input :name)]
                 [:paragraph
                   { :align :right }
@@ -80,7 +81,7 @@
                   "\n"
                   [:anchor {:target (get input :url)} (get input :url)]]
                 ]]}}
-      (if (get input :cover) (cover options (get input :cover)))
+      (if (get input :cover) (cover (get input :cover)))
       [:spacer 6]
       [:paragraph 
       {:size 14}
@@ -89,12 +90,12 @@
       [:line]
       
       [:spacer 2]
-      (highlights/render options (get input :highlights))
+      (highlights/render (get input :highlights))
 
       [:spacer 3]
       [:heading 
       {:encoding :unicode
-        :ttf-name (utils/project-path options "resources/fonts/Padauk-Bold.ttf")}
+        :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
       "Technical Skills"]
       [:line {:dotted true}]
       (skills/skill-bars-svg [40 485] (get input :skills))
@@ -104,7 +105,7 @@
       [:spacer 6]
       [:heading 
       {:encoding :unicode
-        :ttf-name (utils/project-path options "resources/fonts/Padauk-Bold.ttf")}
+        :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
       "Experience"]
       [:line {:dotted true}]
       (experience/experience-template (nth (partition-all 3 (get input :experience)) 0))
@@ -112,8 +113,32 @@
       [:spacer 6]
       [:heading 
       {:encoding :unicode
-        :ttf-name (utils/project-path options "resources/fonts/Padauk-Bold.ttf")}
+        :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
       "Experience"]
       [:line {:dotted true}]
       (experience/experience-template (nth (partition-all 3 (get input :experience)) 1))
+
+      [:pagebreak]
+      [:spacer 6]
+      [:heading 
+       {:encoding :unicode
+        :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
+       "Recent Projects"
+      ]
+      [:line {:dotted true}]
+      [:spacer 2]
+      (projects/projects-template (nth (partition-all 2 (get input :projects)) 0))
+
+      [:pagebreak]
+      [:spacer 6]
+      [:heading 
+       {:encoding :unicode
+        :ttf-name (utils/project-path "resources/fonts/Padauk-Bold.ttf")}
+       "Recent Projects"]
+      [:line {:dotted true}]
+      [:spacer 2]
+      (projects/projects-template (nth (partition-all 2 (get input :projects)) 1))
+
+      (projects/projects-template (nth (partition-all 2 (get input :projects)) 2))
+
     ] output))

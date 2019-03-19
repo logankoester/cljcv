@@ -1,6 +1,7 @@
 (ns cljcv.core
   (:gen-class)
   (:require [clojure.tools.cli :refer [parse-opts]])
+  (:require [cljcv.utils :as utils])
   (:require [cljcv.init :as init])
   (:require [cljcv.build :as build])
   (:require [cljcv.pdf :as pdf]))
@@ -37,6 +38,8 @@
   indicating the action the program should take and the options provided."
   [args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
+    (reset! utils/global-options options)
+
     (cond
       (:help options) ; help => exit OK with usage summary
       {:exit-message (usage summary) :ok? true}
@@ -58,8 +61,10 @@
   [& args]
 
   (let [{:keys [action options exit-message ok?]} (validate-args args)]
+
     (if exit-message
       (exit (if ok? 0 1) exit-message)
+
       (case action
         "init" (init/run options)
         "build" (build/all options)

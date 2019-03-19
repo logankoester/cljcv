@@ -1,6 +1,7 @@
 (ns cljcv.experience
   (:gen-class)
   (:require [clojure.java.io :as io])
+  (:require [cljcv.utils :as utils])
   (:use clj-pdf.core))
 
 (def experience-template
@@ -21,7 +22,7 @@
         [:paragraph
           [:heading.job-title
             {:encoding :unicode 
-             :ttf-name "tmp/resources/fonts/Alice-Regular.ttf"}
+             :ttf-name (utils/project-path "resources/fonts/Alice-Regular.ttf")}
            $title]
           [:phrase { :style :bold }  $company "\n"]]
         [:paragraph

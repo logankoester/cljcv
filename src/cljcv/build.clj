@@ -11,7 +11,7 @@
   (filter #(re-matches #".*\.clj$" %) (seq (.list (clojure.java.io/file dir "data")))))
 
 (defn remap-skill-paths
-  [options resume]
+  [resume]
   (update-in
     resume [:skills]
     (fn
@@ -21,11 +21,11 @@
           [skill]
           (update-in skill [:icon]
                      (fn [icon]
-                       (utils/project-path options icon))))
+                       (utils/project-path icon))))
         skills))))
 
 (defn remap-experience-paths
-  [options resume]
+  [resume]
   (update-in
     resume [:experience]
     (fn
@@ -35,16 +35,14 @@
           [experience]
           (update-in experience [:logo]
                      (fn [logo]
-                       (utils/project-path options logo))))
+                       (utils/project-path logo))))
         experiences))))
 
 (defn remap-resume-paths
   "Remap local paths in a resume to relative project paths"
-  [options resume]
+  [resume]
   (remap-skill-paths
-    options
     (remap-experience-paths
-      options
       resume)))
 
 (defn read-resume
@@ -54,7 +52,6 @@
     [resume-path (str (get options :dir) "data/" file)
      default-path (str (get options :dir) "data/" "default.clj")]
     (remap-resume-paths
-      options
       (merge (read-string (slurp resume-path)) (read-string (slurp default-path))))))
 
 (defn remove-extension
@@ -82,7 +79,7 @@
     (println "Building " file)
     (let
       [output-path (str (get options :dir) "public/" (remove-extension file) ".pdf")]
-      (pdf/build options (read-resume options file) output-path))))
+      (pdf/build (read-resume options file) output-path))))
 
 (defn watch
   "Watch data/ and rebuild when files are changed"
